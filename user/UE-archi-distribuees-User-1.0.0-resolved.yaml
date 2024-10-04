@@ -4,6 +4,190 @@ info:
   description: User API
   version: 1.0.0
 servers:
-  - url: 'http://localhost:8080'
+  - url: 'http://localhost:3203'
 paths:
-  
+  /:
+    get:
+      tags:
+        - developers
+      summary: home page of the service
+      operationId: home
+      responses:
+        "200":
+          description: welcome message
+          content:
+            text/html:
+              schema:
+                type: string
+                example: <h1>Test</h1>
+
+  /user/{userId}/bookings:
+    get:
+        tags:
+            - developers
+        summary: get the bookings from a user id
+        description: By passing in the appropriate options, you can get bookings of a user
+        operationId: get_booking_for_user
+        parameters:
+            - name: userId
+              in: path
+              description: User ID.
+              required: true
+              style: simple
+              schema:
+                  type: string
+        responses:
+            "200":
+              description: Bookings of the user
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/BookingsUser'
+            "400":
+                description: ID not found
+
+
+  /user/{userId}/bookings/movies:
+    get:
+      tags:
+        - developers
+      summary: get movies information from user bookings
+      description: By passing in the appropriate options, you can get movies information from user bookings
+      operationId: get_movies_from_user_bookings
+      parameters:
+        - name: userId
+          in: path
+          description: User ID.
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Movies from user bookings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllMovies'
+        "400":
+          description: ID not found
+
+  /user/{userId}/bookings/times:
+    get:
+      tags:
+        - developers
+      summary: get times of all the bookings of the user
+      description: By passing in the user id, you will get times off all bookings of the user
+      operationId: get_times_from_user_bookings
+      parameters:
+        - name: userId
+          in: path
+          description: User ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Times of the user bookings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllSchedule'
+        "400":
+          description: ID not found
+
+
+components:
+  schemas:
+    BookingsUser:
+      required:
+      - dates
+      - userid
+      type: object
+      properties:
+        userid:
+          type: string
+          example: chris_rivers
+        dates:
+          type: array
+          items:
+            $ref: '#/components/schemas/DateItem'
+    DateItem:
+      required:
+      - date
+      - movies
+      type: object
+      properties:
+        date:
+          type: string
+          example: "20151201"
+        movies:
+          type: array
+          items:
+            type: string
+            example: 276c79ec-a26a-40a6-b3d3-fb242a5947b6
+    NewMovie:
+      required:
+      - date
+      - movieid
+      type: object
+      properties:
+        date:
+          type: string
+          example: "20151201"
+        movieid:
+          type: string
+          example: 276c79ec-a26a-40a6-b3d3-fb242a5947b6
+    MovieItem:
+      type: object
+      required:
+        - title
+        - rating
+        - director
+        - id
+      properties:
+        title:
+          type: string
+          example: The Martian
+        rating:
+          type: integer
+          example: 7
+        director:
+          type: string
+          example: Paul McGuigan
+        id:
+          type: string
+          example: 39ab85e5-5e8e-4dc5-afea-65dc368bd7ab
+    AllMovies:
+      type: object
+      required:
+        - movies
+      properties:
+        movies:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/MovieItem'
+    AllSchedule:
+      required:
+        - schedule
+      type: object
+      properties:
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
+    Schedule:
+      required:
+        - date
+        - movies
+      type: object
+      properties:
+        date:
+          type: string
+          example: "20151130"
+        movies:
+          type: array
+          items:
+            type: string
+            example: 720d006c-3a57-4b6a-b18f-9b713b073f3c
