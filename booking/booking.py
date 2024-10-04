@@ -19,7 +19,7 @@ def home():
 
 
 @app.route("/bookings", methods=['GET'])
-def get_all_bookings():
+def get_json():
     """Retourne la base de données complète des réservations au format JSON"""
     return jsonify(bookings), 200
 
@@ -33,9 +33,8 @@ def get_booking_for_user(userid):
     else:
         raise NotFound("No bookings found for the given user")
 
-
 @app.route("/bookings/<userid>", methods=['POST'])
-def add_booking_for_user(userid):
+def add_booking_byuser(userid):
     """Ajoute une réservation pour un utilisateur spécifique"""
     new_booking = request.get_json()
 

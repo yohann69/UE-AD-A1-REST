@@ -42,7 +42,7 @@ def get_movie_byid(movieid):
         if str(movie["id"]) == str(movieid):
             res = make_response(jsonify(movie), 200)
             return res
-    return make_response(jsonify({"error": "Movie ID not found"}), 400)
+    return make_response(jsonify({"error": "bad input parameter"}), 400)
 
 
 @app.route("/moviesbytitle", methods=['GET'])
@@ -55,13 +55,13 @@ def get_movie_bytitle():
             if str(movie["title"]) == str(req["title"]):
                 json = movie
     if not json:
-        res = make_response(jsonify({"error": "movie title not found"}), 400)
+        res = make_response(jsonify({"error": "bad input parameter"}), 400)
     else:
         res = make_response(jsonify(json), 200)
     return res
 
 
-@app.route("/addmovie/<movieid>", methods=['POST'])
+@app.route("/movies/<movieid>", methods=['POST'])
 def add_movie(movieid):
     req = request.get_json()
     for movie in movies:
@@ -78,7 +78,7 @@ def update_movie_rating(movieid, rate):
     for movie in movies:
         if str(movie["id"]) == str(movieid):
             movie["rating"] = rate
-            res = make_response(jsonify(movie), 200)
+            res = make_response("rate updated", 200)
             return res
     write(movies)
     res = make_response(jsonify({"error": "movie ID not found"}), 201)
@@ -90,8 +90,8 @@ def del_movie(movieid):
     for movie in movies:
         if str(movie["id"]) == str(movieid):
             movies.remove(movie)
-            return make_response(jsonify(movie), 200)
-    res = make_response(jsonify({"error": "movie ID not found"}), 400)
+            return make_response("item deleted", 200)
+    res = make_response(jsonify({"error": "ID not found"}), 400)
     return res
 
 

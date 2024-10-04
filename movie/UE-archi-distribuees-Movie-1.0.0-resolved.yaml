@@ -17,6 +17,8 @@ tags:
     description: Secured Admin-only calls
   - name: developers
     description: Operations available to regular developers
+servers:
+- url: 'http://localhost:3200'
 paths:
   /:
     get:

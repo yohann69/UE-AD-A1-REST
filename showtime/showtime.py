@@ -17,42 +17,14 @@ def home():
     return "<h1 style='color:blue'>Welcome to the Showtime service!</h1>"
 
 
-@app.route("/json", methods=['GET'])
-def get_schedule():
-    """Get the full JSON database of showtimes"""
-    return jsonify(schedule)
-
-
-@app.route("/movies/<movieid>", methods=['GET'])
-def get_movie(movieid):
-    """Get movie details by its ID"""
-    try:
-        # Return the movie data for the given movie ID
-        return jsonify(schedule[movieid])
-    except KeyError:
-        # Raise a 404 error if the movie ID is not found
-        raise NotFound("Movie not found")
-
-
-@app.route("/addmovie", methods=['POST'])
-def add_movie():
-    """Add a new movie to the schedule"""
-    movie = request.get_json()
-    # Add the movie to the schedule using the movie's ID
-    schedule[movie["id"]] = movie
-    return make_response(jsonify({"message": "Movie added"}), 201)
-
-
-# New route for /showtimes based on the OpenAPI documentation
 @app.route("/showtimes", methods=['GET'])
-def get_full_schedule():
+def get_schedule():
     """Get the full JSON schedule database"""
     return jsonify({"schedule": schedule})
 
 
-# New route for /showmovies/<date> based on the OpenAPI documentation
 @app.route("/showmovies/<date>", methods=['GET'])
-def get_movies_by_date(date):
+def get_movies_bydate(date):
     """Get the schedule by date"""
     result = [entry for entry in schedule if entry["date"] == date]
     if result:
