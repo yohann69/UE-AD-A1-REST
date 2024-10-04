@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84adcb2e-3387-453d-81f0-d018096a6a53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/httpClient.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="84adcb2e-3387-453d-81f0-d018096a6a53" name="Changes" comment="[DEV] Correction .py &amp; .yaml de booking, movies, showtime">
       <change afterPath="$PROJECT_DIR$/user/UE-archi-distribuees-User-1.0.0-resolved.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/UE-AD-A1-REST.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UE-AD-A1-REST.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/UE-archi-distribuees-Booking-1.0.0-resolved.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/booking/UE-archi-distribuees-Booking-1.0.0-resolved.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/booking.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/booking.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/UE-archi-distribuees-Movie-1.0.0-resolved.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/movie/UE-archi-distribuees-Movie-1.0.0-resolved.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/databases/movies.json" beforeDir="false" afterPath="$PROJECT_DIR$/movie/databases/movies.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/movie.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie/movie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtime/UE-archi-distribuees-Showtime-1.0.0-resolved.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/showtime/UE-archi-distribuees-Showtime-1.0.0-resolved.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/showtime/showtime.py" beforeDir="false" afterPath="$PROJECT_DIR$/showtime/showtime.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,8 +146,17 @@
       <workItem from="1728023393498" duration="23000" />
       <workItem from="1728028383850" duration="562000" />
       <workItem from="1728028962220" duration="105000" />
-      <workItem from="1728029582482" duration="4926000" />
+      <workItem from="1728029582482" duration="5250000" />
     </task>
+    <task id="LOCAL-00001" summary="[DEV] Correction .py &amp; .yaml de booking, movies, showtime">
+      <option name="closed" value="true" />
+      <created>1728034720814</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728034720814</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +184,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[DEV] Correction .py &amp; .yaml de booking, movies, showtime" />
+    <option name="LAST_COMMIT_MESSAGE" value="[DEV] Correction .py &amp; .yaml de booking, movies, showtime" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UE_AD_A1_REST$booking.coverage" NAME="booking Coverage Results" MODIFIED="1728034375614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/booking" />
