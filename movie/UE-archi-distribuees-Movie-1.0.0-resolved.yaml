@@ -13,15 +13,15 @@ info:
     url: https://www.gnu.org/licenses/gpl-3.0.en.html
   version: 1.0.0
 tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
 paths:
   /:
     get:
       tags:
-      - developers
+        - developers
       summary: home page of the service
       description: |
         Nothing to do
@@ -37,7 +37,7 @@ paths:
   /json:
     get:
       tags:
-      - developers
+        - developers
       summary: get the full JSON database
       description: |
         Nothing to do
@@ -52,17 +52,17 @@ paths:
   /movies/{movieid}:
     get:
       tags:
-      - developers
+        - developers
       summary: get the movie by its id
       description: By passing in the appropriate options, you can get info of a Movie
       operationId: get_movie_byid
       parameters:
-      - name: movieid
-        in: path
-        description: Movie ID.
-        required: true
-        schema:
-          type: string
+        - name: movieid
+          in: path
+          description: Movie ID.
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Movie description
@@ -74,19 +74,19 @@ paths:
           description: bad input parameter
     post:
       tags:
-      - admins
+        - admins
       summary: add a movie item
       description: Adds a movie to the system
       operationId: create_movie
       parameters:
-      - name: movieid
-        in: path
-        description: Movie ID.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
+        - name: movieid
+          in: path
+          description: Movie ID.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
       requestBody:
         description: Inventory item to add
         content:
@@ -104,19 +104,19 @@ paths:
           description: an existing item already exists
     delete:
       tags:
-      - admins
+        - admins
       summary: delete a movie item
       description: Adds a movie to the system
       operationId: del_movie
       parameters:
-      - name: movieid
-        in: path
-        description: Movie ID.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
+        - name: movieid
+          in: path
+          description: Movie ID.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
       responses:
         "200":
           description: item deleted
@@ -125,20 +125,20 @@ paths:
   /moviesbytitle:
     get:
       tags:
-      - developers
+        - developers
       summary: get the movie by its title
       description: |
         By passing in the appropriate options, you can get Movie info
       operationId: get_movie_bytitle
       parameters:
-      - name: title
-        in: query
-        description: pass a title
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
+        - name: title
+          in: query
+          description: pass a title
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
       responses:
         "200":
           description: Movie item
@@ -151,34 +151,94 @@ paths:
   /movies/{movieid}/{rate}:
     put:
       tags:
-      - admins
+        - admins
       summary: update a movie rate
       description: update the rating of a movie
       operationId: update_movie_rating
       parameters:
-      - name: movieid
-        in: path
-        description: Movie ID.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      - name: rate
-        in: path
-        description: Movie rating.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          maximum: 10
-          minimum: 0
-          type: integer
+        - name: movieid
+          in: path
+          description: Movie ID.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: rate
+          in: path
+          description: Movie rating.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            maximum: 10
+            minimum: 0
+            type: integer
       responses:
         "200":
           description: rate updated
         "400":
           description: movie ID not found
+  /movies/{movieid}/description:
+    get:
+      tags:
+        - movies
+      summary: Get movie description
+      description: Retrieve the description of a movie including title, rating, and director.
+      operationId: get_movie_description
+      parameters:
+        - name: movieid
+          in: path
+          description: Movie ID.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Movie description retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    example: "Inception"
+                  rating:
+                    type: integer
+                    example: 9
+                  director:
+                    type: string
+                    example: "Christopher Nolan"
+        "400":
+          description: Movie ID not found
+  /help:
+    get:
+      tags:
+        - system
+      summary: Help endpoint
+      description: Provides a list of available routes and their descriptions.
+      operationId: get_help
+      responses:
+        "200":
+          description: Help information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  GET /: Welcome message
+                  GET /template: HTML template
+                  GET /json: Get all movies
+                  GET /movies/{movieid}: Get movie by ID
+                  GET /moviesbytitle?title={title}: Get movie by title
+                  POST /addmovie/{movieid}: Add movie
+                  PUT /movies/{movieid}/{rate}: Update movie rating
+                  DELETE /movies/{movieid}: Delete movie
+                  GET /movies/{movieid}/description: Get movie description
+
 components:
   schemas:
     AllMovies:
