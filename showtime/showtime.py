@@ -43,6 +43,24 @@ def add_movie():
     return make_response(jsonify({"message": "Movie added"}), 201)
 
 
+# New route for /showtimes based on the OpenAPI documentation
+@app.route("/showtimes", methods=['GET'])
+def get_full_schedule():
+    """Get the full JSON schedule database"""
+    return jsonify({"schedule": schedule})
+
+
+# New route for /showmovies/<date> based on the OpenAPI documentation
+@app.route("/showmovies/<date>", methods=['GET'])
+def get_movies_by_date(date):
+    """Get the schedule by date"""
+    result = [entry for entry in schedule if entry["date"] == date]
+    if result:
+        return jsonify(result[0])
+    else:
+        return make_response(jsonify({"error": "Bad input parameter"}), 400)
+
+
 if __name__ == "__main__":
     print(f"Server running on port {PORT}")
     app.run(host=HOST, port=PORT)
