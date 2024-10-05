@@ -36,46 +36,49 @@ def get_json():
     return res
 
 
-@app.route("/movies/<movieid>", methods=['GET'])
-def get_movie_byid(movieid):
+@app.route("/movies/<movieId>", methods=['GET'])
+def get_movie_byid(movieId):
     for movie in movies:
-        if str(movie["id"]) == str(movieid):
+        if str(movie["id"]) == str(movieId):
             res = make_response(jsonify(movie), 200)
             return res
     return make_response(jsonify({"error": "bad input parameter"}), 400)
 
-
-@app.route("/moviesbytitle", methods=['GET'])
-def get_movie_bytitle():
-    json = ""
-    if request.args:
-        req = request.args
-        for movie in movies:
-            if str(movie["title"]) == str(req["title"]):
-                json = movie
-    if not json:
-        res = make_response(jsonify({"error": "bad input parameter"}), 400)
-    else:
-        res = make_response(jsonify(json), 200)
-    return res
-
-
-@app.route("/movies/<movieid>", methods=['POST'])
-def add_movie(movieid):
+@app.route("/movies/<movieId>", methods=['POST'])
+def add_movie(movieId):
     req = request.get_json()
     for movie in movies:
-        if str(movie["id"]) == str(movieid):
+        if str(movie["id"]) == str(movieId):
             return make_response(jsonify({"error": "movie ID already exists"}), 409)
     movies.append(req)
     write(movies)
     res = make_response(jsonify({"message": "movie added"}), 200)
     return res
 
-
-@app.route("/movies/<movieid>/<rate>", methods=['PUT'])
-def update_movie_rating(movieid, rate):
+@app.route("/movies/<movieId>", methods=['DELETE'])
+def del_movie(movieId):
     for movie in movies:
-        if str(movie["id"]) == str(movieid):
+        if str(movie["id"]) == str(movieId):
+            movies.remove(movie)
+            return make_response("item deleted", 200)
+    res = make_response(jsonify({"error": "ID not found"}), 400)
+    return res
+
+
+@app.route("/movies", methods=['GET'])
+def get_movie_bytitle():
+    title = request.args.get('title')
+    for movie in movies:
+        if movie["title"] == title:
+            res = make_response(jsonify(movie), 200)
+            return res
+    return make_response(jsonify({"error": "movie title not found"}), 400)
+
+
+@app.route("/movies/<movieId>/<rate>", methods=['PUT'])
+def update_movie_rating(movieId, rate):
+    for movie in movies:
+        if str(movie["id"]) == str(movieId):
             movie["rating"] = rate
             res = make_response("rate updated", 200)
             return res
@@ -84,20 +87,11 @@ def update_movie_rating(movieid, rate):
     return res
 
 
-@app.route("/movies/<movieid>", methods=['DELETE'])
-def del_movie(movieid):
-    for movie in movies:
-        if str(movie["id"]) == str(movieid):
-            movies.remove(movie)
-            return make_response("item deleted", 200)
-    res = make_response(jsonify({"error": "ID not found"}), 400)
-    return res
-
 
 @app.route("/movies/<movieid>/description", methods=['GET'])
-def get_movie_description(movieid):
+def get_movie_description(movieId):
     for movie in movies:
-        if str(movie["id"]) == str(movieid):
+        if str(movie["id"]) == str(movieId):
             res = make_response(
                 jsonify({"title": movie["title"], "rating": movie["rating"], "director": movie["director"]}), 200)
             return res
@@ -107,14 +101,15 @@ def get_movie_description(movieid):
 @app.route("/help", methods=['GET'])
 def help():
     return make_response(jsonify({"GET /": "Welcome message",
-                                  "GET /template": "HTML template",
-                                  "GET /json": "Get all movies",
-                                  "GET /movies/<movieid>": "Get movie by ID",
-                                  "GET /moviesbytitle?title=<title>": "Get movie by title",
-                                  "POST /addmovie/<movieid>": "Add movie",
-                                  "PUT /movies/<movieid>/<rate>": "Update movie rating",
-                                  "DELETE /movies/<movieid>": "Delete movie",
-                                  "GET /movies/<movieid>/description": "Get movie description"}), 200)
+                                    "GET /template": "HTML template",
+                                    "GET /json": "Get all movies",
+                                    "GET /movies/<movieId>": "Get movie by ID",
+                                    "GET /movies?title=<title>": "Get movie by title",
+                                    "GET /movies/<movieId>/description": "Get movie description",
+                                    "POST /movies/<movieId>": "Add movie",
+                                    "DELETE /movies/<movieId>": "Delete movie",
+                                    "PUT /movies/<movieId>/<rate>": "Update movie rating"}),
+                            200)
 
 
 if __name__ == "__main__":

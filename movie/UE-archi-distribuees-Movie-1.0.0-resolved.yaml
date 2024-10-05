@@ -51,7 +51,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AllMovies'
-  /movies/{movieid}:
+  /movies/{movieId}:
     get:
       tags:
         - developers
@@ -59,7 +59,7 @@ paths:
       description: By passing in the appropriate options, you can get info of a Movie
       operationId: get_movie_byid
       parameters:
-        - name: movieid
+        - name: movieId
           in: path
           description: Movie ID.
           required: true
@@ -81,7 +81,7 @@ paths:
       description: Adds a movie to the system
       operationId: create_movie
       parameters:
-        - name: movieid
+        - name: movieId
           in: path
           description: Movie ID.
           required: true
@@ -111,7 +111,7 @@ paths:
       description: Adds a movie to the system
       operationId: del_movie
       parameters:
-        - name: movieid
+        - name: movieId
           in: path
           description: Movie ID.
           required: true
@@ -124,33 +124,30 @@ paths:
           description: item deleted
         "400":
           description: ID not found
-  /moviesbytitle:
+  /movies:
     get:
       tags:
         - developers
       summary: get the movie by its title
-      description: |
-        By passing in the appropriate options, you can get Movie info
+      description: By passing in the appropriate options, you can get Movie info
       operationId: get_movie_bytitle
       parameters:
         - name: title
           in: query
-          description: pass a title
+          description: Movie title.
           required: true
-          style: form
-          explode: true
           schema:
             type: string
       responses:
         "200":
-          description: Movie item
+          description: Movie description
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MovieItem'
         "400":
           description: bad input parameter
-  /movies/{movieid}/{rate}:
+  /movies/{movieId}/{rate}:
     put:
       tags:
         - admins
@@ -158,7 +155,7 @@ paths:
       description: update the rating of a movie
       operationId: update_movie_rating
       parameters:
-        - name: movieid
+        - name: movieId
           in: path
           description: Movie ID.
           required: true
@@ -181,7 +178,7 @@ paths:
           description: rate updated
         "400":
           description: movie ID not found
-  /movies/{movieid}/description:
+  /movies/{movieId}/description:
     get:
       tags:
         - movies
@@ -189,7 +186,7 @@ paths:
       description: Retrieve the description of a movie including title, rating, and director.
       operationId: get_movie_description
       parameters:
-        - name: movieid
+        - name: movieId
           in: path
           description: Movie ID.
           required: true
@@ -235,11 +232,6 @@ paths:
                   GET /template: HTML template
                   GET /json: Get all movies
                   GET /movies/{movieid}: Get movie by ID
-                  GET /moviesbytitle?title={title}: Get movie by title
-                  POST /addmovie/{movieid}: Add movie
-                  PUT /movies/{movieid}/{rate}: Update movie rating
-                  DELETE /movies/{movieid}: Delete movie
-                  GET /movies/{movieid}/description: Get movie description
 
 components:
   schemas:
