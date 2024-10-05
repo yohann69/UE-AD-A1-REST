@@ -47,7 +47,6 @@ def get_movie_byid(movieid):
 
 @app.route("/moviesbytitle", methods=['GET'])
 def get_movie_bytitle():
-    print("test")
     json = ""
     if request.args:
         req = request.args

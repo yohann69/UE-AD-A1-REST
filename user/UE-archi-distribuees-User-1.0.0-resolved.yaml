@@ -72,30 +72,6 @@ paths:
         "400":
           description: ID not found
 
-  /user/{userId}/bookings/times:
-    get:
-      tags:
-        - developers
-      summary: get times of all the bookings of the user
-      description: By passing in the user id, you will get times off all bookings of the user
-      operationId: get_times_from_user_bookings
-      parameters:
-        - name: userId
-          in: path
-          description: User ID.
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Times of the user bookings
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AllSchedule'
-        "400":
-          description: ID not found
-
 
 components:
   schemas:
