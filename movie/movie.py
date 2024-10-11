@@ -7,11 +7,18 @@ HOST = '0.0.0.0'
 app = Flask(__name__)
 
 type_defs = load_schema_from_path('movie.graphql')
+
 query = QueryType()
 movie = ObjectType('Movie')
 query.set_field('movie_with_id', r.movie_with_id)
 query.set_field('movie_with_title', r.movie_with_title)
-schema = make_executable_schema(type_defs, movie, query)
+query.set_field('all_movies', r.all_movies)
+
+mutation = MutationType()
+mutation.set_field('update_movie_rating', r.update_movie_rating)
+mutation.set_field('add_movie', r.add_movie)
+
+schema = make_executable_schema(type_defs, movie, query, mutation)
 
 # root message
 @app.route("/", methods=['GET'])
