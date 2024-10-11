@@ -42,3 +42,13 @@ def add_movie(_, info, title, director, rating):
     with open('{}/databases/movies.json'.format("."), "w") as file:
         json.dump(movies, file)
     return movie
+
+# Suppression d'un film dans la base par son id
+def delete_movie(_, info, _id):
+    for movie in movies['movies']:
+        if movie['id'] == _id:
+            movies['movies'].remove(movie)
+            with open('{}/databases/movies.json'.format("."), "w") as file:
+                json.dump(movies, file)
+            return movie
+    raise ValueError("Movie with id [" + _id + "] not found.")
